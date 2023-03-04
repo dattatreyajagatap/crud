@@ -2,6 +2,12 @@
     session_start();
     include ('db.php');
     $db = new db();
+
+    if(!isset($_SESSION['name'])) {
+        $id = $_SESSION["id"];
+        $name = $_SESSION["name"];
+        header('location: login.php');
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,6 +29,21 @@
     <!-- place navbar here -->
   </header>
   <main>
+        <?php //echo $_SESSION["name"]; ?>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-primary" aria-current="page" href="patient.php?logout=yes">logout here</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+
     <div class="container">
         <div class="row">
             

@@ -85,5 +85,41 @@
         
     }
 
+    if(isset($_POST['login'])){
+        $patient_name = $_POST['patient_name'];
+        $patient_conatct = $_POST['patient_conatct'];
+
+        $db = new db();
+
+        $db->select('patient_details','*',null,"patient_name = '$patient_name' AND patient_conatct = '$patient_conatct'",null,0); 
+        $response = $db->getResult();
+
+        if($response){
+            foreach($response as $row) {
+                $patient_table_id = $row['patient_table_id'];
+                $patient_name = $row['patient_name'];
+            }
+            $_SESSION["id"] = $patient_table_id; /* for admin */
+            $_SESSION["name"] = $patient_name; /* for admin */
+            header("location: index.php");
+
+        }else{
+            echo array('error'=>'flase'); exit;
+
+        }
+
+
+
+
+    }
+
+    if(isset($_GET['logout'])){
+        if($_GET['logout'] == "yes"){
+            // mysqli_close($conn);
+            unset($_SESSION["id"]);
+            unset($_SESSION["name"]);
+            header("location: login.php");
+        }
+    }
    
 ?>
